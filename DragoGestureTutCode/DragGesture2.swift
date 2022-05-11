@@ -9,8 +9,9 @@ import SwiftUI
 
 struct DragGesture2: View {
     
-    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.85
+    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.86
     @State var currentDragOffsetY: CGFloat = 0
+    @State var endingOffsetY: CGFloat = 0
     
     var body: some View {
         ZStack {
@@ -19,6 +20,7 @@ struct DragGesture2: View {
             MySignUpView()
                 .offset(y: startingOffsetY)
                 .offset(y: currentDragOffsetY)
+                .offset(y: endingOffsetY)
                 .gesture(
                     DragGesture()
                         .onChanged { value in
@@ -27,12 +29,31 @@ struct DragGesture2: View {
                             }
                         }
                         .onEnded { value in
+                            
                             withAnimation(.spring()) {
-                                currentDragOffsetY = 0
+                                if currentDragOffsetY < -150 {
+                                    print(".onEnded if :: \(currentDragOffsetY)")
+                                    endingOffsetY = -startingOffsetY
+                                    currentDragOffsetY = 0
+                                } else if endingOffsetY != 0 && currentDragOffsetY > 150 {
+                                    endingOffsetY = 0
+                                    currentDragOffsetY = 0
+                                } else {
+                                    print(".onEnded else :: \(currentDragOffsetY)")
+                                    //endingOffsetY = -startingOffsetY
+                                    currentDragOffsetY = 0
+                                }
+                                
                             }
                             
                         }
                 )
+            
+            VStack {
+                Text("startingOffsetY ::\(startingOffsetY)")
+                Text("currentDragOffsetY ::\(currentDragOffsetY)")
+                Text("endingOffsetY ::\(endingOffsetY)")
+            }
             
         }
         .ignoresSafeArea(edges: .bottom)
@@ -56,7 +77,7 @@ struct MySignUpView: View {
                 .font(.headline)
                 .fontWeight(.semibold)
             
-            Image(systemName: "flame.fill")
+            Image(systemName: "house.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 100, height: 100)

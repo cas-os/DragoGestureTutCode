@@ -11,7 +11,7 @@ import SwiftUI
 struct DragoGestureTutCodeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DragGesture2()
         }
     }
 }
