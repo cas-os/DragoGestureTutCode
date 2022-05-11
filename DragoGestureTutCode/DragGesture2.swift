@@ -34,15 +34,16 @@ struct DragGesture2: View {
                                 if currentDragOffsetY < -150 {
                                     print(".onEnded if :: \(currentDragOffsetY)")
                                     endingOffsetY = -startingOffsetY
-                                    currentDragOffsetY = 0
+                                    //currentDragOffsetY = 0
                                 } else if endingOffsetY != 0 && currentDragOffsetY > 150 {
                                     endingOffsetY = 0
-                                    currentDragOffsetY = 0
+                                    //currentDragOffsetY = 0
                                 } else {
                                     print(".onEnded else :: \(currentDragOffsetY)")
                                     //endingOffsetY = -startingOffsetY
-                                    currentDragOffsetY = 0
+                                    //currentDragOffsetY = 0
                                 }
+                                currentDragOffsetY = 0
                                 
                             }
                             
